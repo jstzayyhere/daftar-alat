@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventaris Barang Ruang Alat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5dc; /* Warna krem/kardus */
+            color: #4a4a4a;
+        }
+        h1 {
+            color: #5c3a21; /* Coklat tua */
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #b8860b; /* Coklat keemasan */
+            padding-bottom: 10px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative; /* Penting untuk penempatan ikon */
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .search-container input[type=text] {
+            padding: 12px 12px 12px 40px; /* Sesuaikan padding kiri untuk ikon */
+            width: 100%;
+            border: 2px solid #a0522d; /* Coklat sedang */
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #fffaf0; /* Putih gading */
+            transition: all 0.3s ease;
+        }
+        .search-container input[type=text]:focus {
+            outline: none;
+            border-color: #8b4513; /* Coklat gelap */
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.2);
+        }
+        .search-container .fa-search {
+            position: absolute;
+            left: 15px; /* Posisi ikon di sebelah kiri */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b4513; /* Warna ikon */
+            font-size: 18px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #d2b48c; /* Coklat muda */
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #8b4513; /* Coklat gelap */
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        tr:nth-child(even) {
+            background-color: #fdf5e6; /* Warna lebih terang dari body */
+        }
+        tr:hover:not(.rak-header) {
+            background-color: #e0d2c0; /* Coklat abu-abu */
+            transition: background-color 0.3s ease;
+        }
+        .rak-header {
+            background-color: #a0522d !important; /* Coklat sedang */
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-align: center;
+            padding: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Inventaris Barang Ruang Alat</h1>
+
+<div class="search-container">
+    <i class="fa-solid fa-magnifying-glass fa-search"></i>
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari nama alat...">
+</div>
+
+<table id="inventoryTable">
+    <thead>
+        <tr>
+            <th>Nomor Rak</th>
+            <th>Nama Alat</th>
+            <th>Quantity</th>
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="rak-header" colspan="4">RAK A</td>
+        </tr>
+        <tr>
+            <td>A-1</td>
+            <td>CENTER DRILL</td>
+            <td>4</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>DIAL INDICATOR</td>
+            <td>10</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-2</td>
+            <td>PAHAT DALAM</td>
+            <td>17</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PAHAT KNURLING</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PAHAT LUAR</td>
+            <td>14</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PAHAT HSS ( DALAM TOPLES)</td>
+            <td>33</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>HANDLE RAGUM</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-3</td>
+            <td>PIN PUNCH</td>
+            <td>4 SET</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KUNCI L</td>
+            <td>3 SET + 22</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>STARIGHT</td>
+            <td>3 SET</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>CEKAM COLLET</td>
+            <td>5 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>CAST ENCAPSULTED</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-4</td>
+            <td>HAND SNEY</td>
+            <td>9</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY 12m x 1.75 15</td>
+            <td>15</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY 5 x 0.8 3</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY m 9.6 1</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY m10 x1.5 2</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY g ⅛ 2</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY g8 x1 25 2</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY g¼ 9</td>
+            <td>9</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY 9</td>
+            <td>9</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>TAB</td>
+            <td>19 PACK + 39</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KISAT</td>
+            <td>10</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-5</td>
+            <td>BATU GERINDA</td>
+            <td>25 PACK & 10 BATU</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>GERGAJI BESI</td>
+            <td>1 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>BEARING</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-6</td>
+            <td>kunci gerinda 6</td>
+            <td>6</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>hndle 2</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>GIR MESIN</td>
+            <td>8 PCS</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PLASTIK</td>
+            <td>2 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KABEL TIE</td>
+            <td>1 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SOLDER</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-7</td>
+            <td>BOR TANGAN</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SEKOP</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ARROW WELDING MAGNET</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>DINABOLD</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>A-8</td>
+            <td>HELM LAS</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SARUNG TANGAN LAS</td>
+            <td>4</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KOTAK PERKAKAS MERAH</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rak-header" colspan="4">RAK B</td>
+        </tr>
+        <tr>
+            <td>B-1</td>
+            <td>KACAMATA</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>EARMUFF</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-2</td>
+            <td>OIL CAN</td>
+            <td>9</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KIKIR KECIL</td>
+            <td>4 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-3</td>
+            <td>MATA BOR</td>
+            <td>54</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>DRILL CHUCK KEY</td>
+            <td>10</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>HOLE SHAW</td>
+            <td>4</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>FACE MILL</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>CENTER PUTAR</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>HOLDER ALUR</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-4</td>
+            <td>CENTER PUTAR 2</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ARBOR HOLDER GERINDA 13</td>
+            <td>13</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>CHUCK BOR 6</td>
+            <td>6</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-5</td>
+            <td>LETTER PUNCH</td>
+            <td>1 SET</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>NUMBER PUNCH</td>
+            <td>1 SET</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>MUR & BAUT</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PAKU</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>MUR T</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-6</td>
+            <td>HASIL BENDA KERJA</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PENGASAH BATU GERINDA</td>
+            <td>4</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KUNCI CHUCK</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-7</td>
+            <td>KOTAK PERKAKAS MERAH</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>B-8</td>
+            <td>KOTAK PERKAKAS BIRU</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rak-header" colspan="4">RAK C</td>
+        </tr>
+        <tr>
+            <td>C-1</td>
+            <td>GERINDA DUDUK</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-2</td>
+            <td>RAGUM</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-3</td>
+            <td>GERINDA TANGAN</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>GERINDA GCO</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-4</td>
+            <td>RAGUM</td>
+            <td>4</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-5</td>
+            <td>RAGUM</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-6</td>
+            <td>RAGUM</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-7</td>
+            <td>KUNCI CHUCK</td>
+            <td>4</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>KOTAK PERKAKAS</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>C-8</td>
+            <td>RAGUM</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rak-header" colspan="4">RAK D</td>
+        </tr>
+        <tr>
+            <td>D-1</td>
+            <td>BOR TANGAN</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-2</td>
+            <td>GEAR</td>
+            <td>10 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-3</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-4</td>
+            <td>ROUND COLLET</td>
+            <td>58</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-5</td>
+            <td>OBENG</td>
+            <td>11</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>DEMPUL</td>
+            <td>8 KALENG + 1 PACK</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-6</td>
+            <td>OBENG</td>
+            <td>16</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SNEY</td>
+            <td>3 SET</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-7</td>
+            <td>KUNCI CHUCK</td>
+            <td>8</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>D-8</td>
+            <td>ALAT BANTU MESIN BUBUT (PENYANGGA)</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="rak-header" colspan="4">RAK E</td>
+        </tr>
+        <tr>
+            <td>E-1</td>
+            <td>GERGAJI</td>
+            <td>12</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PENGASAH BATU GERINDA</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-2</td>
+            <td>KIKIR</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-3</td>
+            <td>PALU BESI</td>
+            <td>11</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PALU KARET</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PALU TERAK</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>SIKAT TERAK</td>
+            <td>12</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-4</td>
+            <td>OBENG +/-</td>
+            <td>27 + 1 PACK (OBENG VARIASI)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-5</td>
+            <td>PALU KARET</td>
+            <td>11</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-6</td>
+            <td>TANG BESAR</td>
+            <td>3</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>PALU PLASTIK</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-7</td>
+            <td>ELEKTRODA RB-26</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ELETRODA RD-260</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ELEKTRODA LD-52U</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E-8</td>
+            <td>ELEKTRODA RB-26</td>
+            <td>5</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ELEKTRODA RD-260</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ELEKTRODA LD-52U</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("inventoryTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            if (tr[i].classList.contains('rak-header')) {
+                continue;
+            }
+            
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+        
+        var rakHeaders = document.querySelectorAll('.rak-header');
+        rakHeaders.forEach(function(header) {
+            var nextSibling = header.nextElementSibling;
+            var allItemsHidden = true;
+            while (nextSibling && !nextSibling.classList.contains('rak-header')) {
+                if (nextSibling.style.display !== "none") {
+                    allItemsHidden = false;
+                    break;
+                }
+                nextSibling = nextSibling.nextElementSibling;
+            }
+            if (allItemsHidden) {
+                header.style.display = "none";
+            } else {
+                header.style.display = "";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
